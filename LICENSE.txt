@@ -1,0 +1,7 @@
+Breakout © 2024 by Hubert Aschermann is licensed under CC BY-NC-SA 4.0
+Human readable format: https://creativecommons.org/licenses/by-nc-sa/4.0/
+Full licence: https://creativecommons.org/licenses/by-nc-sa/4.0/
+The initial versions of the code are taken from Joey de Vries.
+https://twitter.com/JoeyDeVriez
+Subsequent modifications are based on his tutorials.
+https://learnopengl.com/About
