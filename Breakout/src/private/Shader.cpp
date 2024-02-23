@@ -49,7 +49,6 @@ void Shader::Compile(const char* sourceVert, const char* sourceFrag, const char*
     glDeleteShader(shaderFragm);
     if (sourceGeo != nullptr)
         glDeleteShader(shaderGeo);
-
 }
 
 void Shader::SetFloat(const char* name, float value, bool useShader)

@@ -18,7 +18,7 @@ Shader ResourceManager::LoadShader(const char* shaderFileVert, const char* shade
     return Shaders[name];
 }
 
-Shader ResourceManager::GetSHader(std::string name)
+Shader& ResourceManager::GetShader(std::string name)
 {
     return Shaders[name];
 }
@@ -29,7 +29,7 @@ Texture2D ResourceManager::LoadTexture(const char* file, bool alpha, std::string
     return Textures[name];
 }
 
-Texture2D ResourceManager::GetTexture(std::string name)
+Texture2D& ResourceManager::GetTexture(std::string name)
 {
     return Textures[name];
 }
@@ -75,7 +75,9 @@ Shader ResourceManager::loadShaderFromFile(const char* shaderFileVert, const cha
 
     const char* vertexShaderCode = vertexCode.c_str();
     const char* fragmentShaderCode = fragmentCode.c_str();
-    const char* geometryShaderCode = geometryCode.c_str();
+    const char* geometryShaderCode = nullptr;
+    if (shaderFileGeo != nullptr)
+        geometryShaderCode = geometryCode.c_str();
 
     Shader shader;
     shader.Compile(vertexShaderCode, fragmentShaderCode, geometryShaderCode != nullptr ? geometryShaderCode : nullptr);
@@ -87,7 +89,7 @@ Texture2D ResourceManager::loadTextureFromFile(const char* file, bool alpha)
     Texture2D texture;
     if (alpha) {
         texture.setInternalFormat(GL_RGBA);
-        texture.setInternalFormat(GL_RGBA);
+        texture.setImageFormat(GL_RGBA);
     }
     
     int width, height, nrChannels;

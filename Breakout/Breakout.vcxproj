@@ -14,6 +14,7 @@
     <ClInclude Include="src\public\Game.h" />
     <ClInclude Include="src\public\ResourceManager.h" />
     <ClInclude Include="src\public\Shader.h" />
+    <ClInclude Include="src\public\SpriteRenderer.h" />
     <ClInclude Include="src\public\stb_image.h" />
     <ClInclude Include="src\public\Texture.h" />
   </ItemGroup>
@@ -23,12 +24,22 @@
     <ClCompile Include="src\private\main.cpp" />
     <ClCompile Include="src\private\ResourceManager.cpp" />
     <ClCompile Include="src\private\Shader.cpp" />
+    <ClCompile Include="src\private\SpriteRenderer.cpp" />
     <ClCompile Include="src\private\stb_image.cpp" />
     <ClCompile Include="src\private\Texture.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="src\shaders\shader.frag" />
-    <None Include="src\shaders\shader.vert" />
+    <None Include="src\shaders\shader.vert">
+      <FileType>Document</FileType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="resources\flower.png" />
+    <Image Include="resources\flower_small.png" />
+    <Image Include="resources\heart.png" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>

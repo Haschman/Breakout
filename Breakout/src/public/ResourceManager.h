@@ -10,10 +10,10 @@
 class ResourceManager {
 public:
     static Shader LoadShader(const char* shaderFileVert, const char* shaderFileFrag, const char* shaderFileGeo, std::string name);
-    static Shader GetSHader(std::string name);
+    static Shader& GetShader(std::string name);
 
     static Texture2D LoadTexture(const char* file, bool alpha, std::string name);
-    static Texture2D GetTexture(std::string name);
+    static Texture2D& GetTexture(std::string name);
 
     // De-allocates all loaded resources
     static void Clear();
