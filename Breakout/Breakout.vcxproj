@@ -11,6 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\public\Ball.h" />
     <ClInclude Include="src\public\Game.h" />
     <ClInclude Include="src\public\GameLevel.h" />
     <ClInclude Include="src\public\GameObject.h" />
@@ -21,6 +22,7 @@
     <ClInclude Include="src\public\Texture.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\private\Ball.cpp" />
     <ClCompile Include="src\private\Game.cpp" />
     <ClCompile Include="src\private\GameLevel.cpp" />
     <ClCompile Include="src\private\GameObject.cpp" />
@@ -46,6 +48,7 @@
     <Image Include="resources\flower.png" />
     <Image Include="resources\flower_small.png" />
     <Image Include="resources\heart.png" />
+    <Image Include="resources\white_ball.png" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>

@@ -3,6 +3,8 @@
 #include <vector>
 
 #include "GameLevel.h"
+#include "Ball.h"
+#include "SpriteRenderer.h"
 
 
 // Current state of the game
@@ -31,4 +33,8 @@ private:
 
     std::vector<GameLevel> m_levels;
     unsigned int m_currentLevel;
+
+    // TODO: Move somewhere else? and make std::unique_ptr
+    Ball* m_ball;
+    SpriteRenderer* m_spriteRenderer;
 };

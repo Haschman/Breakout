@@ -45,6 +45,9 @@
     <ClInclude Include="src\public\GameLevel.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\public\Ball.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\private\Game.cpp">
@@ -77,6 +80,9 @@
     <ClCompile Include="src\private\GameLevel.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\private\Ball.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="src\shaders\shader.frag">
@@ -100,6 +106,9 @@
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="resources\block.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="resources\white_ball.png">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>

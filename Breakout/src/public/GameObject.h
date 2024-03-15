@@ -15,8 +15,10 @@ public:
 
     bool isDestroyed() const;
 
-private:
+protected:
     glm::vec2 m_position, m_size, m_velocity;
+
+private:
     glm::vec3 m_color;
     float m_rotation;
     bool m_isSolid;
