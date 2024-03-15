@@ -16,6 +16,9 @@
     <Filter Include="Source Files\Shaders">
       <UniqueIdentifier>{a1852df5-7362-49b7-bcb2-ed915f1f02ca}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resource Files\Levels">
+      <UniqueIdentifier>{88b9acdf-ab04-4ec3-82ba-7694ac8a8108}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\public\Game.h">
@@ -34,6 +37,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\public\SpriteRenderer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\public\GameObject.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\public\GameLevel.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -62,6 +71,12 @@
     <ClCompile Include="src\private\SpriteRenderer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\private\GameObject.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\private\GameLevel.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="src\shaders\shader.frag">
@@ -69,6 +84,9 @@
     </None>
     <None Include="src\shaders\shader.vert">
       <Filter>Source Files\Shaders</Filter>
+    </None>
+    <None Include="resources\levels\1.lvl">
+      <Filter>Resource Files\Levels</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -79,6 +97,9 @@
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="resources\heart.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="resources\block.png">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>

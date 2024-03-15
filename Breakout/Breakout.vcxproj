@@ -12,6 +12,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\public\Game.h" />
+    <ClInclude Include="src\public\GameLevel.h" />
+    <ClInclude Include="src\public\GameObject.h" />
     <ClInclude Include="src\public\ResourceManager.h" />
     <ClInclude Include="src\public\Shader.h" />
     <ClInclude Include="src\public\SpriteRenderer.h" />
@@ -20,6 +22,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\private\Game.cpp" />
+    <ClCompile Include="src\private\GameLevel.cpp" />
+    <ClCompile Include="src\private\GameObject.cpp" />
     <ClCompile Include="src\private\glad.c" />
     <ClCompile Include="src\private\main.cpp" />
     <ClCompile Include="src\private\ResourceManager.cpp" />
@@ -29,6 +33,7 @@
     <ClCompile Include="src\private\Texture.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="resources\levels\1.lvl" />
     <None Include="src\shaders\shader.frag" />
     <None Include="src\shaders\shader.vert">
       <FileType>Document</FileType>
@@ -37,6 +42,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Image Include="resources\block.png" />
     <Image Include="resources\flower.png" />
     <Image Include="resources\flower_small.png" />
     <Image Include="resources\heart.png" />

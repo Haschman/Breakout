@@ -20,7 +20,8 @@ Game::~Game()
 
 void Game::Init()
 {
-    ResourceManager::LoadShader("src/shaders/shader.vert", "src/shaders/shader.frag", nullptr, "sprite");
+    ResourceManager::LoadShader("src/shaders/shader.vert", "src/shaders/shader.frag", nullptr,
+        "sprite");
     glm::mat4 projection = glm::ortho(0.0f, static_cast<float>(m_width),
         static_cast<float>(m_height), 0.0f, -1.0f, 1.0f);
     ResourceManager::GetShader("sprite").Use().SetInteger("image", 0);
@@ -28,7 +29,12 @@ void Game::Init()
 
     spriteRenderer = new SpriteRenderer(ResourceManager::GetShader("sprite"));
 
-    ResourceManager::LoadTexture("resources/flower.png", true, "flower");
+    ResourceManager::LoadTexture("resources/block.png", false, "block");
+
+    GameLevel one;
+    one.Load("resources/levels/1.lvl", m_width, m_height / 2);
+    m_levels.push_back(one);
+    m_currentLevel = 0;
 }
 
 void Game::ProcessInput(float dt)
@@ -41,7 +47,7 @@ void Game::Update(float dt)
 
 void Game::Render()
 {
-    spriteRenderer->DrawSprite(ResourceManager::GetTexture("flower"),
-        glm::vec2(200.0f, 200.0f), glm::vec2(300.0f, 400.0f), 45.0f,
-        glm::vec3(1.0f, 1.0f, 1.0f));
+    if (m_state == GAME_ACTIVE) {
+        m_levels[m_currentLevel].Draw(*spriteRenderer);
+    }
 }

@@ -1,5 +1,9 @@
 #pragma once
 
+#include <vector>
+
+#include "GameLevel.h"
+
 
 // Current state of the game
 enum GameState {
@@ -24,4 +28,7 @@ public:
 private:
     GameState m_state;
     unsigned int m_width, m_height;
+
+    std::vector<GameLevel> m_levels;
+    unsigned int m_currentLevel;
 };
