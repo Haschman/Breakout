@@ -11,7 +11,16 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\imgui\imconfig.h" />
+    <ClInclude Include="src\imgui\imgui.h" />
+    <ClInclude Include="src\imgui\imgui_impl_glfw.h" />
+    <ClInclude Include="src\imgui\imgui_impl_opengl3.h" />
+    <ClInclude Include="src\imgui\imgui_internal.h" />
+    <ClInclude Include="src\imgui\imstb_rectpack.h" />
+    <ClInclude Include="src\imgui\imstb_textedit.h" />
+    <ClInclude Include="src\imgui\imstb_truetype.h" />
     <ClInclude Include="src\public\Ball.h" />
+    <ClInclude Include="src\public\ErrorManager.h" />
     <ClInclude Include="src\public\Game.h" />
     <ClInclude Include="src\public\GameLevel.h" />
     <ClInclude Include="src\public\GameObject.h" />
@@ -22,6 +31,12 @@
     <ClInclude Include="src\public\Texture.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\imgui\imgui.cpp" />
+    <ClCompile Include="src\imgui\imgui_draw.cpp" />
+    <ClCompile Include="src\imgui\imgui_impl_glfw.cpp" />
+    <ClCompile Include="src\imgui\imgui_impl_opengl3.cpp" />
+    <ClCompile Include="src\imgui\imgui_tables.cpp" />
+    <ClCompile Include="src\imgui\imgui_widgets.cpp" />
     <ClCompile Include="src\private\Ball.cpp" />
     <ClCompile Include="src\private\Game.cpp" />
     <ClCompile Include="src\private\GameLevel.cpp" />
@@ -63,6 +78,7 @@
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
+    <EnableASAN>true</EnableASAN>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
@@ -70,6 +86,7 @@
     <PlatformToolset>v143</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
+    <EnableASAN>false</EnableASAN>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
@@ -86,13 +103,13 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <OutDir>$(SolutionDir)bin\$(Platform)\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)bin\intermediates\$(Platform)\$(Configuration)\</IntDir>
-    <IncludePath>C:\dev\glm-1.0.0-light;C:\dev\glad\include;C:\dev\glfw-3.3.9_build\include;$(IncludePath);$(ProjectDir)src\public</IncludePath>
+    <IncludePath>C:\dev\glm-1.0.0-light;C:\dev\glad\include;C:\dev\glfw-3.3.9_build\include;$(IncludePath);$(ProjectDir)src\imgui;$(ProjectDir)src\public</IncludePath>
     <LibraryPath>C:\dev\glfw-3.3.9_build\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <OutDir>$(SolutionDir)bin\$(Platform)\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)bin\intermediates\$(Platform)\$(Configuration)\</IntDir>
-    <IncludePath>C:\dev\glm-1.0.0-light;C:\dev\glad\include;C:\dev\glfw-3.3.9_build\include;$(IncludePath);$(ProjectDir)src\public</IncludePath>
+    <IncludePath>C:\dev\glm-1.0.0-light;C:\dev\glad\include;C:\dev\glfw-3.3.9_build\include;$(IncludePath);$(ProjectDir)src\imgui;$(ProjectDir)src\public</IncludePath>
     <LibraryPath>C:\dev\glfw-3.3.9_build\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -103,6 +120,8 @@
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <Optimization>Disabled</Optimization>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -120,6 +139,7 @@
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>

@@ -1,8 +1,13 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
+#include "imgui.h"
+#include "imgui_impl_glfw.h"
+#include "imgui_impl_opengl3.h"
+
 #include "Game.h"
 #include "ResourceManager.h"
+#include "ErrorManager.h"
 
 #include <iostream>
 
@@ -30,16 +35,30 @@ void framebufferSizeCallback(GLFWwindow* window, int width, int height) {
 
 
 int main(int argc, char* argv[]) {
-    glfwInit();
+
+    if (!glfwInit()) {
+        return -1;
+    }
 
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
     glfwWindowHint(GLFW_RESIZABLE, false);
 
-    GLFWwindow* window = glfwCreateWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Breakout", nullptr, nullptr);
+    GLFWwindow* window = glfwCreateWindow(
+        SCREEN_WIDTH,
+        SCREEN_HEIGHT,
+        "Breakout",
+        nullptr,
+        nullptr
+    );
+    if (!window) {
+        glfwTerminate();
+        return -1;
+    }
     glfwMakeContextCurrent(window);
-
+    
+    
     if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) {
         std::cout << "Failed to initialize GLAD" << std::endl;
         return -1;
@@ -48,35 +67,82 @@ int main(int argc, char* argv[]) {
     glfwSetKeyCallback(window, keyCallback);
     glfwSetFramebufferSizeCallback(window, framebufferSizeCallback);
 
-    glViewport(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
-    glEnable(GL_BLEND);
-    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    glfwSwapInterval(1);
 
-    Breakout.Init();
+    std::cout << glGetString(GL_VERSION) << std::endl << std::endl;
 
-    float deltaTime = 0.0f;
-    float lastFrame = 0.0f;
+    IMGUI_CHECKVERSION();
+    ImGui::CreateContext();
+    ImGuiIO& io = ImGui::GetIO();
+    io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;
 
-    while (!glfwWindowShouldClose(window)) {
-        float currentFrame = glfwGetTime();
-        deltaTime = currentFrame - lastFrame;
-        lastFrame = currentFrame;
-        glfwPollEvents();
+    ImGui_ImplGlfw_InitForOpenGL(window, true);
+    ImGui_ImplOpenGL3_Init();
 
-        Breakout.ProcessInput(deltaTime);
+    {
+        GLCall(glViewport(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT));
+        GLCall(glEnable(GL_BLEND));
+        GLCall(glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA));
 
-        Breakout.Update(deltaTime);
+        Breakout.Init();
 
-        glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
-        glClear(GL_COLOR_BUFFER_BIT);
+        float deltaTime = 0.0f;
+        float lastFrame = 0.0f;
 
-        Breakout.Render();
+        while (!glfwWindowShouldClose(window)) {
+            glfwPollEvents();
 
-        glfwSwapBuffers(window);
+            // Start the Dear ImGui frame
+            ImGui_ImplOpenGL3_NewFrame();
+            ImGui_ImplGlfw_NewFrame();
+            ImGui::NewFrame();
+
+            static float red = 0.0f;
+            static float green = 0.0f;
+            static float blue = 0.0f;
+
+            {
+
+                ImGui::Begin("ImGUI window");
+
+                ImGui::SliderFloat("red", &red, 0.0f, 1.0f);
+                ImGui::SliderFloat("green", &green, 0.0f, 1.0f);
+                ImGui::SliderFloat("blue", &blue, 0.0f, 1.0f);
+
+
+                ImGui::Text(
+                    "Application average %.3f ms/frame (%.1f FPS)",
+                    1000.0f / io.Framerate,
+                    io.Framerate
+                );
+                ImGui::End();
+            }
+
+            GLCall(glClearColor(red, green, blue, 1.0f));
+            GLCall(glClear(GL_COLOR_BUFFER_BIT));
+
+            float currentFrame = glfwGetTime();
+            deltaTime = currentFrame - lastFrame;
+            lastFrame = currentFrame;
+
+            Breakout.ProcessInput(currentFrame);
+
+            Breakout.Update(deltaTime);
+
+            ImGui::Render();
+            Breakout.Render();
+
+            ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+
+            glfwSwapBuffers(window);
+        }
+
+        ResourceManager::Clear();
     }
 
-    ResourceManager::Clear();
-
+    ImGui_ImplOpenGL3_Shutdown();
+    ImGui_ImplGlfw_Shutdown();
+    ImGui::DestroyContext();
     glfwTerminate();
     return 0;
 }

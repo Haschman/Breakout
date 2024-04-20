@@ -11,13 +11,15 @@ const float BALL_RADIUS = 12.5f;
 
 
 Game::Game(unsigned int width, unsigned int height)
-    : m_width(width), m_height(height), m_state(GAME_ACTIVE), m_keys()
+    : m_width(width), m_height(height), m_state(GAME_ACTIVE), m_keys(), m_ball(nullptr),
+    m_currentLevel(0), m_spriteRenderer(nullptr)
 {
 }
 
 Game::~Game()
 {
     delete m_spriteRenderer;
+    delete m_ball;
 }
 
 void Game::Init()
