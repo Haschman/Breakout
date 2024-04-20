@@ -11,7 +11,9 @@ public:
 
     void Load(const char* file, unsigned int levelWidth, unsigned int levelHeight);
     void Draw(SpriteRenderer& renderer);
+
     bool IsCompleted();
+    std::vector<GameObject>& getBricks();
 
 private:
     std::vector<GameObject> m_bricks;

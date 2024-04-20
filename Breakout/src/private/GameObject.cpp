@@ -17,7 +17,22 @@ void GameObject::Draw(SpriteRenderer& renderer)
     renderer.DrawSprite(m_sprite, m_position, m_size, m_rotation, m_color);
 }
 
+void GameObject::Destroy()
+{
+    m_destroyed = true;
+}
+
 bool GameObject::isDestroyed() const
 {
     return m_destroyed;
+}
+
+glm::vec2 GameObject::getPosition() const
+{
+    return m_position;
+}
+
+glm::vec2 GameObject::getSize() const
+{
+    return m_size;
 }

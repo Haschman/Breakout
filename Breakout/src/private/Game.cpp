@@ -67,6 +67,7 @@ void Game::ProcessInput(float dt)
 
 void Game::Update(float dt)
 {
+    doCollisions();
     m_ball->Move(dt, m_width, m_height);
 }
 
@@ -75,5 +76,54 @@ void Game::Render()
     if (m_state == GAME_ACTIVE) {
         m_levels[m_currentLevel].Draw(*m_spriteRenderer);
         m_ball->Draw(*m_spriteRenderer);
+    }
+}
+
+/**
+ * @brief Check if the ball has collided with a GameObject of type AABB.
+ * 
+ * First, calculate the AABB's center and half extents.
+ * Then calculate the difference between the ball's center and the AABB's
+ * center.
+ * Next, clamp the difference vector to the AABB's half extents.
+ * Calculate the closest point on the AABB to the ball.
+ * And finally, calculate the difference between the closest point and the
+ * ball's center.
+ * 
+ * @param aabbObj The GameObject to check for collision with.
+ * @return true If the ball has collided with the GameObject.
+ * @return false If the ball has not collided with the GameObject.
+ */
+bool Game::checkBallCollision(GameObject& aabbObj)
+{
+    glm::vec2 ballCenter(m_ball->getPosition() + m_ball->getRadius());
+    glm::vec2 aabbHalfExtents(aabbObj.getSize() / 2.0f);
+    glm::vec2 aabbCenter(aabbObj.getPosition() + aabbHalfExtents);
+
+    glm::vec2 difference(ballCenter - aabbCenter);
+    glm::vec2 clamped(
+        glm::clamp(difference, -aabbHalfExtents, aabbHalfExtents)
+    );
+    glm::vec2 closest(aabbCenter + clamped);
+
+    difference = closest - ballCenter;
+    
+    return glm::length(difference) < m_ball->getRadius();
+}
+
+/**
+ * @brief Check for collisions between the ball and the bricks.
+ * 
+ * For each brick in the current level, check if the ball has collided with
+ * the brick. If the ball has collided with the brick, destroy the brick.
+ */
+void Game::doCollisions()
+{
+    for (GameObject& brick : m_levels[m_currentLevel].getBricks()) {
+        if (!brick.isDestroyed()) {
+            if (checkBallCollision(brick)) {
+                brick.Destroy();
+            }
+        }
     }
 }

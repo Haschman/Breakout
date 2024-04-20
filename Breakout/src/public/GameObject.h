@@ -12,8 +12,11 @@ public:
         glm::vec2 velocity = glm::vec2(0.0f, 0.0f));
 
     virtual void Draw(SpriteRenderer& renderer);
+    void Destroy();
 
     bool isDestroyed() const;
+    glm::vec2 getPosition() const;
+    glm::vec2 getSize() const;
 
 protected:
     glm::vec2 m_position, m_size, m_velocity;

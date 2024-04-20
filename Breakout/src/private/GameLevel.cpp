@@ -48,6 +48,11 @@ bool GameLevel::IsCompleted()
     return true;
 }
 
+std::vector<GameObject>& GameLevel::getBricks()
+{
+    return m_bricks;
+}
+
 void GameLevel::init(std::vector<std::vector<unsigned int>> tileData, unsigned int levelWidth,
     unsigned int levelHeight)
 {

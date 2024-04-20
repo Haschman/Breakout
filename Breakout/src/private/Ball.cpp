@@ -38,3 +38,8 @@ void Ball::Reset(glm::vec2 position, glm::vec2 velocity)
     m_position = position;
     m_velocity = velocity;
 }
+
+float Ball::getRadius() const
+{
+    return m_radius;
+}

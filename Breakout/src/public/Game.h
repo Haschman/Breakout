@@ -28,6 +28,9 @@ public:
     bool m_keys[1024];
 
 private:
+    bool checkBallCollision(GameObject& aabbObj);
+    void doCollisions();
+
     GameState m_state;
     unsigned int m_width, m_height;
 

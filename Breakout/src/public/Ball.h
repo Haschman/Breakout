@@ -14,6 +14,7 @@ public:
 
     glm::vec2 Move(float delta, unsigned int window_width, unsigned int window_height);
     void Reset(glm::vec2 position, glm::vec2 velocity);
+    float getRadius() const;
 
 private:
     float m_radius;
