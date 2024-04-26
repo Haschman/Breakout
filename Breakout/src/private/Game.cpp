@@ -67,7 +67,7 @@ void Game::ProcessInput(float dt)
 
 void Game::Update(float dt)
 {
-    doCollisions();
+    DoCollisions();
     m_ball->Move(dt, m_width, m_height);
 }
 
@@ -91,10 +91,10 @@ void Game::Render()
  * ball's center.
  * 
  * @param aabbObj The GameObject to check for collision with.
- * @return true If the ball has collided with the GameObject.
- * @return false If the ball has not collided with the GameObject.
+ * @return A collision tuple containing a boolean indicating if a collision
+ * has occurred, the direction of the collision, and the difference vector.
  */
-bool Game::checkBallCollision(GameObject& aabbObj)
+Collision Game::CheckBallCollision(GameObject& aabbObj)
 {
     glm::vec2 ballCenter(m_ball->getPosition() + m_ball->getRadius());
     glm::vec2 aabbHalfExtents(aabbObj.getSize() / 2.0f);
@@ -108,21 +108,30 @@ bool Game::checkBallCollision(GameObject& aabbObj)
 
     difference = closest - ballCenter;
     
-    return glm::length(difference) < m_ball->getRadius();
+    if (glm::length(difference) < m_ball->getRadius())
+        return std::make_tuple(true, m_ball->VectorDirection(difference), difference);
+    return std::make_tuple(false, UP, glm::vec2(0.0f));
 }
 
 /**
  * @brief Check for collisions between the ball and the bricks.
  * 
  * For each brick in the current level, check if the ball has collided with
- * the brick. If the ball has collided with the brick, destroy the brick.
+ * the brick. If the ball has collided with the brick, destroy the brick. Then
+ * reverse the ball's velocity based on the direction of the collision and the
+ * difference vector (penetration of the ball).
  */
-void Game::doCollisions()
+void Game::DoCollisions()
 {
     for (GameObject& brick : m_levels[m_currentLevel].getBricks()) {
         if (!brick.isDestroyed()) {
-            if (checkBallCollision(brick)) {
+            Collision collision = CheckBallCollision(brick);
+            if (std::get<bool>(collision)) {
                 brick.Destroy();
+
+                Direction dir = std::get<Direction>(collision);
+                glm::vec2 diffVector = std::get<glm::vec2>(collision);
+                m_ball->ReverseVelocity(dir, diffVector);
             }
         }
     }

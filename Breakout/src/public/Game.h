@@ -14,6 +14,8 @@ enum GameState {
     GAME_END
 };
 
+typedef std::tuple<bool, Direction, glm::vec2> Collision;
+
 class Game {
 public:
     Game(unsigned int width, unsigned int height);
@@ -28,8 +30,8 @@ public:
     bool m_keys[1024];
 
 private:
-    bool checkBallCollision(GameObject& aabbObj);
-    void doCollisions();
+    Collision CheckBallCollision(GameObject& aabbObj);
+    void DoCollisions();
 
     GameState m_state;
     unsigned int m_width, m_height;

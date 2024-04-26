@@ -33,13 +33,63 @@ glm::vec2 Ball::Move(float delta, unsigned int window_width, unsigned int window
     return m_position;
 }
 
-void Ball::Reset(glm::vec2 position, glm::vec2 velocity)
+void Ball::Reset(const glm::vec2 &position, const glm::vec2 &velocity)
 {
     m_position = position;
     m_velocity = velocity;
 }
 
+/**
+ * Reverses the velocity of the ball based on the given direction and adjusts
+ * the position to resolve collision (penetration).
+ * 
+ * @param dir The direction of the collision.
+ * @param diffVector The difference vector between the ball and the colliding object.
+ */
+void Ball::ReverseVelocity(const Direction& dir, const glm::vec2 &diffVector)
+{
+    if (dir == Direction::LEFT || dir == Direction::RIGHT) {
+        m_velocity.x = -m_velocity.x;
+        float penetration = m_radius - std::abs(diffVector.x);
+        dir == Direction::LEFT ? m_position.x += penetration : m_position.x -= penetration;
+    }
+    else {
+        m_velocity.y = -m_velocity.y;
+        float penetration = m_radius - std::abs(diffVector.y);
+        dir == Direction::DOWN ? m_position.y += penetration : m_position.y -= penetration;
+    }
+}
+
 float Ball::getRadius() const
 {
     return m_radius;
+}
+
+/**
+ * Calculates the direction of a vector relative to the compass directions.
+ * 
+ * @param target The target vector.
+ * @return The direction of the vector.
+ */
+Direction Ball::VectorDirection(const glm::vec2 &target) const
+{
+    glm::vec2 compass[] = {
+        glm::vec2(0.0f, 1.0f), // up
+        glm::vec2(1.0f, 0.0f), // right
+        glm::vec2(0.0f, -1.0f), // down
+        glm::vec2(-1.0f, 0.0f) // left
+    };
+
+    float max = 0.0f;
+    unsigned int bestMatch = -1;
+
+    for (unsigned int i = 0; i < 4; i++) {
+        float dotProduct = glm::dot(glm::normalize(target), compass[i]);
+        if (dotProduct > max) {
+            max = dotProduct;
+            bestMatch = i;
+        }
+    }
+
+    return (Direction)bestMatch;
 }
