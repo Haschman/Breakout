@@ -16,7 +16,7 @@ enum Direction {
 class Ball : public GameObject {
 public:
     Ball();
-    Ball(float radius, glm::vec2 pos, glm::vec2 velocity, Texture2D sprite);
+    Ball(float radius, glm::vec2 pos, glm::vec2 velocity, Texture2D sprite, bool isLight);
 
     glm::vec2 Move(float delta, unsigned int window_width, unsigned int window_height);
     void Reset(const glm::vec2 &position, const glm::vec2 &velocity);

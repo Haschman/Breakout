@@ -6,20 +6,18 @@
 
 
 // TODO: Move these to a config file
-const glm::vec2 INITIAL_BALL_VELOCITY(100.0f, -350.0f);
 const float BALL_RADIUS = 12.5f;
 
 
 Game::Game(unsigned int width, unsigned int height)
-    : m_width(width), m_height(height), m_state(GAME_ACTIVE), m_keys(), m_ball(nullptr),
-    m_currentLevel(0), m_spriteRenderer(nullptr)
+    : m_width(width), m_height(height), m_state(GAME_ACTIVE), m_keys(),
+      m_spriteRenderer(nullptr)
 {
 }
 
 Game::~Game()
 {
     delete m_spriteRenderer;
-    delete m_ball;
 }
 
 void Game::Init()
@@ -43,22 +41,28 @@ void Game::Init()
 
     m_spriteRenderer = new SpriteRenderer(ResourceManager::GetShader("sprite"));
 
-    ResourceManager::LoadTexture("resources/block.png", false, "block");
+    ResourceManager::LoadTexture("resources/block_white.png", false, "block");
 
     GameLevel one;
-    one.Load("resources/levels/1.lvl", m_width, m_height / 2);
+    one.Init(10.0f, 15.0f, static_cast<float>(m_width), static_cast<float>(m_height));
     m_levels.push_back(one);
-    m_currentLevel = 0;
 
     ResourceManager::LoadTexture("resources/white_ball.png", true, "white_ball");
 
-    glm::vec2 ballPos = glm::vec2((m_width / 2) - (BALL_RADIUS), m_height - BALL_RADIUS * 2);
-    m_ball = new Ball(
+    m_balls.push_back(std::make_unique<Ball>(
         BALL_RADIUS,
-        ballPos,
-        INITIAL_BALL_VELOCITY,
-        ResourceManager::GetTexture("white_ball")
-    );
+        glm::vec2((m_width / 2) - (BALL_RADIUS), m_height - BALL_RADIUS * 2),
+        glm::vec2(100.0f, -350.0f),
+        ResourceManager::GetTexture("white_ball"),
+        true
+    ));
+    m_balls.push_back(std::make_unique<Ball>(
+        BALL_RADIUS,
+        glm::vec2((m_width / 2) - (BALL_RADIUS), BALL_RADIUS * 2),
+        glm::vec2(-100.0f, 350.0f),
+        ResourceManager::GetTexture("white_ball"),
+        false
+    ));
 }
 
 void Game::ProcessInput(float dt)
@@ -68,14 +72,16 @@ void Game::ProcessInput(float dt)
 void Game::Update(float dt)
 {
     DoCollisions();
-    m_ball->Move(dt, m_width, m_height);
+    for (auto& ball : m_balls)
+        ball->Move(dt, m_width, m_height);
 }
 
 void Game::Render()
 {
     if (m_state == GAME_ACTIVE) {
-        m_levels[m_currentLevel].Draw(*m_spriteRenderer);
-        m_ball->Draw(*m_spriteRenderer);
+        m_levels[0].Draw(*m_spriteRenderer);
+        for (auto& ball : m_balls)
+            ball->Draw(*m_spriteRenderer);
     }
 }
 
@@ -94,9 +100,12 @@ void Game::Render()
  * @return A collision tuple containing a boolean indicating if a collision
  * has occurred, the direction of the collision, and the difference vector.
  */
-Collision Game::CheckBallCollision(GameObject& aabbObj)
+Collision Game::CheckBallCollision(GameObject& aabbObj, Ball *ball)
 {
-    glm::vec2 ballCenter(m_ball->getPosition() + m_ball->getRadius());
+    if (aabbObj.isLight() + ball->isLight() == 1)
+        return std::make_tuple(false, UP, glm::vec2(0.0f));
+
+    glm::vec2 ballCenter(ball->getPosition() + ball->getRadius());
     glm::vec2 aabbHalfExtents(aabbObj.getSize() / 2.0f);
     glm::vec2 aabbCenter(aabbObj.getPosition() + aabbHalfExtents);
 
@@ -108,8 +117,8 @@ Collision Game::CheckBallCollision(GameObject& aabbObj)
 
     difference = closest - ballCenter;
     
-    if (glm::length(difference) < m_ball->getRadius())
-        return std::make_tuple(true, m_ball->VectorDirection(difference), difference);
+    if (glm::length(difference) < ball->getRadius())
+        return std::make_tuple(true, ball->VectorDirection(difference), difference);
     return std::make_tuple(false, UP, glm::vec2(0.0f));
 }
 
@@ -123,15 +132,15 @@ Collision Game::CheckBallCollision(GameObject& aabbObj)
  */
 void Game::DoCollisions()
 {
-    for (GameObject& brick : m_levels[m_currentLevel].getBricks()) {
-        if (!brick.isDestroyed()) {
-            Collision collision = CheckBallCollision(brick);
+    for (GameObject& brick : m_levels[0].getBricks()) {
+        for (auto& ball : m_balls) {
+            Collision collision = CheckBallCollision(brick, ball.get());
             if (std::get<bool>(collision)) {
                 brick.Destroy();
-
+        
                 Direction dir = std::get<Direction>(collision);
                 glm::vec2 diffVector = std::get<glm::vec2>(collision);
-                m_ball->ReverseVelocity(dir, diffVector);
+                ball->ReverseVelocity(dir, diffVector);
             }
         }
     }

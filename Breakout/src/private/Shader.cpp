@@ -106,7 +106,7 @@ void Shader::SetMatrix4(const char* name, const glm::mat4& matrix, bool useShade
     glUniformMatrix4fv(glGetUniformLocation(m_ID, name), 1, false, glm::value_ptr(matrix));
 }
 
-unsigned int Shader::getID()
+unsigned int Shader::getID() const
 {
     return m_ID;
 }

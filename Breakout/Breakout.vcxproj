@@ -59,7 +59,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="resources\block.png" />
+    <Image Include="resources\block_white.png" />
     <Image Include="resources\flower.png" />
     <Image Include="resources\flower_small.png" />
     <Image Include="resources\heart.png" />

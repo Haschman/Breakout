@@ -9,7 +9,7 @@ class GameLevel {
 public:
     GameLevel() { }
 
-    void Load(const char* file, unsigned int levelWidth, unsigned int levelHeight);
+    void Init(float numOfLines, float numOfBricksPerLine, float width, float height);
     void Draw(SpriteRenderer& renderer);
 
     bool IsCompleted();
@@ -17,7 +17,4 @@ public:
 
 private:
     std::vector<GameObject> m_bricks;
-
-    void init(std::vector<std::vector<unsigned int>> tileData, unsigned int levelWidth,
-        unsigned int levelHeight);
 };

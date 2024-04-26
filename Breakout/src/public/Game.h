@@ -1,6 +1,7 @@
 #pragma once
 
 #include <vector>
+#include <memory>
 
 #include "GameLevel.h"
 #include "Ball.h"
@@ -30,16 +31,14 @@ public:
     bool m_keys[1024];
 
 private:
-    Collision CheckBallCollision(GameObject& aabbObj);
+    Collision CheckBallCollision(GameObject& aabbObj, Ball *ball);
     void DoCollisions();
 
     GameState m_state;
     unsigned int m_width, m_height;
 
     std::vector<GameLevel> m_levels;
-    unsigned int m_currentLevel;
 
-    // TODO: Move somewhere else? and make std::unique_ptr
-    Ball* m_ball;
+    std::vector<std::unique_ptr<Ball>> m_balls;
     SpriteRenderer* m_spriteRenderer;
 };

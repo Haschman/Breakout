@@ -4,8 +4,8 @@ Ball::Ball() : GameObject(), m_radius(12.5f)
 {
 }
 
-Ball::Ball(float radius, glm::vec2 pos, glm::vec2 velocity, Texture2D sprite)
-    : GameObject(pos, glm::vec2(radius * 2.0f, radius * 2.0f), sprite, glm::vec3(1.0f), velocity),
+Ball::Ball(float radius, glm::vec2 pos, glm::vec2 velocity, Texture2D sprite, bool isLight)
+    : GameObject(pos, glm::vec2(radius * 2.0f, radius * 2.0f), sprite, isLight, glm::vec3(1.0f), velocity),
       m_radius(radius)
 {
 }
