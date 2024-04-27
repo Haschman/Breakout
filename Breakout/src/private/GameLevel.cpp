@@ -29,10 +29,10 @@ void GameLevel::Init(float numOfLines, float numOfBricksPerLine, float width, fl
     }
 }
 
-void GameLevel::Draw(SpriteRenderer& renderer)
+void GameLevel::Draw(SpriteRenderer& renderer, const glm::vec3 &color)
 {
     for (GameObject& tile : m_bricks)
-        tile.Draw(renderer);
+        tile.Draw(renderer, color);
 }
 
 bool GameLevel::IsCompleted()

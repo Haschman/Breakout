@@ -51,8 +51,10 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="resources\levels\1.lvl" />
-    <None Include="src\shaders\shader.frag" />
-    <None Include="src\shaders\shader.vert">
+    <None Include="src\shaders\shader.frag.h">
+      <FileType>Document</FileType>
+    </None>
+    <None Include="src\shaders\shader.vert.h">
       <FileType>Document</FileType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
@@ -103,13 +105,13 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <OutDir>$(SolutionDir)bin\$(Platform)\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)bin\intermediates\$(Platform)\$(Configuration)\</IntDir>
-    <IncludePath>C:\dev\glm-1.0.0-light;C:\dev\glad\include;C:\dev\glfw-3.3.9_build\include;$(IncludePath);$(ProjectDir)src\imgui;$(ProjectDir)src\public</IncludePath>
+    <IncludePath>C:\dev\glm-1.0.0-light;C:\dev\glad\include;C:\dev\glfw-3.3.9_build\include;$(IncludePath);$(ProjectDir)src\imgui;$(ProjectDir)src\public;$(ProjectDir)src\shaders</IncludePath>
     <LibraryPath>C:\dev\glfw-3.3.9_build\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <OutDir>$(SolutionDir)bin\$(Platform)\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)bin\intermediates\$(Platform)\$(Configuration)\</IntDir>
-    <IncludePath>C:\dev\glm-1.0.0-light;C:\dev\glad\include;C:\dev\glfw-3.3.9_build\include;$(IncludePath);$(ProjectDir)src\imgui;$(ProjectDir)src\public</IncludePath>
+    <IncludePath>C:\dev\glm-1.0.0-light;C:\dev\glad\include;C:\dev\glfw-3.3.9_build\include;$(IncludePath);$(ProjectDir)src\imgui;$(ProjectDir)src\public;$(ProjectDir)src\shaders</IncludePath>
     <LibraryPath>C:\dev\glfw-3.3.9_build\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">

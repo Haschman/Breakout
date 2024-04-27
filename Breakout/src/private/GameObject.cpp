@@ -27,11 +27,11 @@ GameObject::GameObject(
 {
 }
 
-void GameObject::Draw(SpriteRenderer& renderer)
+void GameObject::Draw(SpriteRenderer& renderer, const glm::vec3 &color)
 {
     m_isLight ?
-        renderer.DrawSprite(m_sprite, m_position, m_size, m_rotation, m_color) :
-        renderer.DrawSprite(m_sprite, m_position, m_size, m_rotation, glm::vec3(1.0f - m_color.r, 1.0f -m_color.g, 1.0f - m_color.b));
+        renderer.DrawSprite(m_sprite, m_position, m_size, m_rotation, color) :
+        renderer.DrawSprite(m_sprite, m_position, m_size, m_rotation, glm::vec3(1.0f - color));
 }
 
 void GameObject::Destroy()

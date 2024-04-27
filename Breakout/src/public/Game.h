@@ -26,7 +26,7 @@ public:
 
     void ProcessInput(float dt);
     void Update(float dt);
-    void Render();
+    void Render(const glm::vec3 &color);
 
     bool m_keys[1024];
 

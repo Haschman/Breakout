@@ -17,7 +17,7 @@ public:
         glm::vec2 velocity = glm::vec2(0.0f, 0.0f)
     );
 
-    virtual void Draw(SpriteRenderer& renderer);
+    virtual void Draw(SpriteRenderer& renderer, const glm::vec3 &color);
     void Destroy();
 
     bool isLight() const;

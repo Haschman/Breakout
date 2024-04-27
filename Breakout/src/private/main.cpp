@@ -102,23 +102,23 @@ int main(int argc, char* argv[]) {
             static float green = 0.0f;
             static float blue = 0.0f;
 
-            //{
-            //    ImGui::Begin("ImGUI window");
-            //
-            //    ImGui::SliderFloat("red", &red, 0.0f, 1.0f);
-            //    ImGui::SliderFloat("green", &green, 0.0f, 1.0f);
-            //    ImGui::SliderFloat("blue", &blue, 0.0f, 1.0f);
-            //
-            //
-            //    ImGui::Text(
-            //        "Application average %.3f ms/frame (%.1f FPS)",
-            //        1000.0f / io.Framerate,
-            //        io.Framerate
-            //    );
-            //    ImGui::End();
-            //}
+            {
+                ImGui::Begin("ImGUI window");
+            
+                ImGui::SliderFloat("red", &red, 0.0f, 1.0f);
+                ImGui::SliderFloat("green", &green, 0.0f, 1.0f);
+                ImGui::SliderFloat("blue", &blue, 0.0f, 1.0f);
+            
+            
+                ImGui::Text(
+                    "Application average %.3f ms/frame (%.1f FPS)",
+                    1000.0f / io.Framerate,
+                    io.Framerate
+                );
+                ImGui::End();
+            }
 
-            GLCall(glClearColor(red, green, blue, 1.0f));
+            GLCall(glClearColor(1.0f, 1.0f, 1.0f, 1.0f));
             GLCall(glClear(GL_COLOR_BUFFER_BIT));
 
             float currentFrame = (float)glfwGetTime();
@@ -130,7 +130,7 @@ int main(int argc, char* argv[]) {
             Breakout.Update(deltaTime);
 
             ImGui::Render();
-            Breakout.Render();
+            Breakout.Render(glm::vec3(red, green, blue));
 
             ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 

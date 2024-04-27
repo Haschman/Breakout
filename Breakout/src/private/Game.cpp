@@ -22,12 +22,7 @@ Game::~Game()
 
 void Game::Init()
 {
-    ResourceManager::LoadShader(
-        "src/shaders/shader.vert",
-        "src/shaders/shader.frag",
-        nullptr,
-        "sprite"
-    );
+    ResourceManager::LoadShader("MainShader");
     glm::mat4 projection = glm::ortho(
         0.0f,
         static_cast<float>(m_width),
@@ -36,10 +31,10 @@ void Game::Init()
         -1.0f,
         1.0f
     );
-    ResourceManager::GetShader("sprite").Use().SetInteger("image", 0);
-    ResourceManager::GetShader("sprite").Use().SetMatrix4("projection", projection);
+    ResourceManager::GetShader("MainShader").Use().SetInteger("image", 0);
+    ResourceManager::GetShader("MainShader").Use().SetMatrix4("projection", projection);
 
-    m_spriteRenderer = new SpriteRenderer(ResourceManager::GetShader("sprite"));
+    m_spriteRenderer = new SpriteRenderer(ResourceManager::GetShader("MainShader"));
 
     ResourceManager::LoadTexture("resources/block_white.png", false, "block");
 
@@ -76,12 +71,12 @@ void Game::Update(float dt)
         ball->Move(dt, m_width, m_height);
 }
 
-void Game::Render()
+void Game::Render(const glm::vec3 &color)
 {
     if (m_state == GAME_ACTIVE) {
-        m_levels[0].Draw(*m_spriteRenderer);
+        m_levels[0].Draw(*m_spriteRenderer, color);
         for (auto& ball : m_balls)
-            ball->Draw(*m_spriteRenderer);
+            ball->Draw(*m_spriteRenderer, color);
     }
 }
 

@@ -1,4 +1,6 @@
 #include "ResourceManager.h"
+#include "shader.frag.h"
+#include "shader.vert.h"
 
 #include <iostream>
 #include <sstream>
@@ -12,9 +14,17 @@
 std::map<std::string, Texture2D> ResourceManager::Textures;
 std::map<std::string, Shader> ResourceManager::Shaders;
 
-Shader ResourceManager::LoadShader(const char* shaderFileVert, const char* shaderFileFrag, const char* shaderFileGeo, std::string name)
+Shader ResourceManager::LoadShader(const char* shaderFileVert, const char* shaderFileFrag, const char* shaderFileGeo, const std::string &name)
 {
     Shaders[name] = loadShaderFromFile(shaderFileVert, shaderFileFrag, shaderFileGeo);
+    return Shaders[name];
+}
+
+Shader ResourceManager::LoadShader(const std::string &name)
+{
+    Shader shader;
+    shader.Compile(VERTEX_SHADER_SOURCE, FRAGMENT_SHADER_SOURCE, nullptr);
+    Shaders[name] = shader;
     return Shaders[name];
 }
 
