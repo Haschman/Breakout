@@ -40,7 +40,7 @@ bool GameLevel::IsCompleted()
     return false;
 }
 
-std::vector<GameObject>& GameLevel::getBricks()
+std::vector<GameObject>& GameLevel::GetBricks()
 {
     return m_bricks;
 }

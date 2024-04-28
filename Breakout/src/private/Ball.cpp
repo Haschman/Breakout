@@ -4,7 +4,7 @@ Ball::Ball() : GameObject(), m_radius(12.5f)
 {
 }
 
-Ball::Ball(float radius, glm::vec2 pos, glm::vec2 velocity, Texture2D sprite, bool isLight)
+Ball::Ball(float radius, const glm::vec2& pos, const glm::vec2& velocity, const Texture2D& sprite, bool isLight)
     : GameObject(pos, glm::vec2(radius * 2.0f, radius * 2.0f), sprite, isLight, glm::vec3(1.0f), velocity),
       m_radius(radius)
 {
@@ -14,7 +14,7 @@ glm::vec2 Ball::Move(float delta, unsigned int window_width, unsigned int window
 {
     m_position += m_velocity * delta;
 
-    if (m_position.x <= 0.0f) { // hit left side of window
+    if (m_position.x <= 0.0f) {
         m_velocity.x = -m_velocity.x;
         m_position.x = 0.0f;
     }
@@ -31,12 +31,6 @@ glm::vec2 Ball::Move(float delta, unsigned int window_width, unsigned int window
         m_position.y = window_height - m_size.y;
     }
     return m_position;
-}
-
-void Ball::Reset(const glm::vec2 &position, const glm::vec2 &velocity)
-{
-    m_position = position;
-    m_velocity = velocity;
 }
 
 /**
@@ -60,7 +54,7 @@ void Ball::ReverseVelocity(const Direction& dir, const glm::vec2 &diffVector)
     }
 }
 
-float Ball::getRadius() const
+float Ball::GetRadius() const
 {
     return m_radius;
 }

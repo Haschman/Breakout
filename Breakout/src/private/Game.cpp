@@ -14,14 +14,12 @@ const float BALL_RADIUS = 12.5f;
 
 
 Game::Game(unsigned int width, unsigned int height)
-    : m_width(width), m_height(height), m_state(GAME_ACTIVE), m_keys(),
-      m_spriteRenderer(nullptr)
+    : m_width(width), m_height(height), m_state(GAME_ACTIVE)
 {
 }
 
 Game::~Game()
 {
-    delete m_spriteRenderer;
 }
 
 void Game::Init()
@@ -38,7 +36,7 @@ void Game::Init()
     ResourceManager::GetShader("MainShader").Use().SetInteger("image", 0);
     ResourceManager::GetShader("MainShader").Use().SetMatrix4("projection", projection);
 
-    m_spriteRenderer = new SpriteRenderer(ResourceManager::GetShader("MainShader"));
+    m_spriteRenderer = std::make_unique<SpriteRenderer>(ResourceManager::GetShader("MainShader"));
 
     ResourceManager::LoadTextureFromHeader(block_white_png, block_white_png_len, false, "block");
 
@@ -107,14 +105,14 @@ void Game::Render(const glm::vec3 &color)
  * @return A collision tuple containing a boolean indicating if a collision
  * has occurred, the direction of the collision, and the difference vector.
  */
-Collision Game::CheckBallCollision(GameObject& aabbObj, Ball *ball)
+Collision Game::CheckBallCollision(const GameObject& aabbObj, const Ball &ball)
 {
-    if (aabbObj.isLight() + ball->isLight() == 1)
+    if (aabbObj.IsLight() + ball.IsLight() == 1)
         return std::make_tuple(false, UP, glm::vec2(0.0f));
 
-    glm::vec2 ballCenter(ball->getPosition() + ball->getRadius());
-    glm::vec2 aabbHalfExtents(aabbObj.getSize() / 2.0f);
-    glm::vec2 aabbCenter(aabbObj.getPosition() + aabbHalfExtents);
+    glm::vec2 ballCenter(ball.GetPosition() + ball.GetRadius());
+    glm::vec2 aabbHalfExtents(aabbObj.GetSize() / 2.0f);
+    glm::vec2 aabbCenter(aabbObj.GetPosition() + aabbHalfExtents);
 
     glm::vec2 difference(ballCenter - aabbCenter);
     glm::vec2 clamped(
@@ -124,8 +122,8 @@ Collision Game::CheckBallCollision(GameObject& aabbObj, Ball *ball)
 
     difference = closest - ballCenter;
     
-    if (glm::length(difference) < ball->getRadius())
-        return std::make_tuple(true, ball->VectorDirection(difference), difference);
+    if (glm::length(difference) < ball.GetRadius())
+        return std::make_tuple(true, ball.VectorDirection(difference), difference);
     return std::make_tuple(false, UP, glm::vec2(0.0f));
 }
 
@@ -139,9 +137,9 @@ Collision Game::CheckBallCollision(GameObject& aabbObj, Ball *ball)
  */
 void Game::DoCollisions()
 {
-    for (GameObject& brick : m_levels[0].getBricks()) {
+    for (GameObject& brick : m_levels[0].GetBricks()) {
         for (auto& ball : m_balls) {
-            Collision collision = CheckBallCollision(brick, ball.get());
+            Collision collision = CheckBallCollision(brick, *ball);
             if (std::get<bool>(collision)) {
                 brick.Destroy();
         

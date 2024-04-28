@@ -11,12 +11,12 @@ GameObject::GameObject()
 }
 
 GameObject::GameObject(
-    glm::vec2 pos,
-    glm::vec2 size,
-    Texture2D sprite,
+    const glm::vec2 &pos,
+    const glm::vec2 &size,
+    const Texture2D &sprite,
     bool isLight,
-    glm::vec3 color,
-    glm::vec2 velocity
+    const glm::vec3 &color,
+    const glm::vec2 &velocity
 )
     : m_position(pos),
       m_size(size),
@@ -27,7 +27,7 @@ GameObject::GameObject(
 {
 }
 
-void GameObject::Draw(SpriteRenderer& renderer, const glm::vec3 &color)
+void GameObject::Draw(SpriteRenderer& renderer, const glm::vec3 &color) const
 {
     m_isLight ?
         renderer.DrawSprite(m_sprite, m_position, m_size, m_rotation, color) :
@@ -39,17 +39,17 @@ void GameObject::Destroy()
     m_isLight = !m_isLight;
 }
 
-bool GameObject::isLight() const
+bool GameObject::IsLight() const
 {
     return m_isLight;
 }
 
-glm::vec2 GameObject::getPosition() const
+glm::vec2 GameObject::GetPosition() const
 {
     return m_position;
 }
 
-glm::vec2 GameObject::getSize() const
+glm::vec2 GameObject::GetSize() const
 {
     return m_size;
 }

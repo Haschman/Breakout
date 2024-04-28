@@ -22,12 +22,6 @@ Game Breakout(SCREEN_WIDTH, SCREEN_HEIGHT);
 void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mode) {
     if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
         glfwSetWindowShouldClose(window, true);
-    if (key >= 0 && key < 1024) {
-        if (action == GLFW_PRESS)
-            Breakout.m_keys[key] = true;
-        else if (action == GLFW_RELEASE)
-            Breakout.m_keys[key] = false;
-    }
 }
 
 void framebufferSizeCallback(GLFWwindow* window, int width, int height) {
@@ -44,7 +38,7 @@ int main(int argc, char* argv[]) {
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-    glfwWindowHint(GLFW_RESIZABLE, false);
+    glfwWindowHint(GLFW_RESIZABLE, true);
 
     GLFWwindow* window = glfwCreateWindow(
         SCREEN_WIDTH,
@@ -68,7 +62,7 @@ int main(int argc, char* argv[]) {
     glfwSetKeyCallback(window, keyCallback);
     glfwSetFramebufferSizeCallback(window, framebufferSizeCallback);
 
-    glfwSwapInterval(1);
+    glfwSwapInterval(2);
 
     std::cout << glGetString(GL_VERSION) << std::endl << std::endl;
 
@@ -103,18 +97,20 @@ int main(int argc, char* argv[]) {
             static float blue = 0.0f;
 
             {
-                ImGui::Begin("ImGUI window");
-            
+                ImGui::Begin("Colors");
+
                 ImGui::SliderFloat("red", &red, 0.0f, 1.0f);
                 ImGui::SliderFloat("green", &green, 0.0f, 1.0f);
                 ImGui::SliderFloat("blue", &blue, 0.0f, 1.0f);
-            
-            
+
+            #ifdef _DEBUG
                 ImGui::Text(
                     "Application average %.3f ms/frame (%.1f FPS)",
                     1000.0f / io.Framerate,
                     io.Framerate
                 );
+            #endif
+
                 ImGui::End();
             }
 

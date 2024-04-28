@@ -16,13 +16,12 @@ enum Direction {
 class Ball : public GameObject {
 public:
     Ball();
-    Ball(float radius, glm::vec2 pos, glm::vec2 velocity, Texture2D sprite, bool isLight);
+    Ball(float radius, const glm::vec2 &pos, const glm::vec2 &velocity, const Texture2D &sprite, bool isLight);
 
     glm::vec2 Move(float delta, unsigned int window_width, unsigned int window_height);
-    void Reset(const glm::vec2 &position, const glm::vec2 &velocity);
     void ReverseVelocity(const Direction &dir, const glm::vec2& diffVector);
 
-    float getRadius() const;
+    float GetRadius() const;
     Direction VectorDirection(const glm::vec2 &target) const;
 
 private:

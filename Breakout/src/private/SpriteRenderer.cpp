@@ -12,8 +12,8 @@ SpriteRenderer::~SpriteRenderer()
     glDeleteVertexArrays(1, &m_quadVAO);
 }
 
-void SpriteRenderer::DrawSprite(Texture2D& texture, glm::vec2 position,
-    glm::vec2 size, float rotate, glm::vec3 color)
+void SpriteRenderer::DrawSprite(const Texture2D& texture, const glm::vec2 &position,
+    const glm::vec2 &size, float rotate, const glm::vec3 &color)
 {
     m_shader.Use();
     glm::mat4 model = glm::mat4(1.0f);

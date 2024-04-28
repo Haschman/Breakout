@@ -28,12 +28,12 @@ Shader ResourceManager::LoadShader(const std::string &name)
     return Shaders[name];
 }
 
-Shader& ResourceManager::GetShader(std::string name)
+Shader& ResourceManager::GetShader(const std::string &name)
 {
     return Shaders[name];
 }
 
-Texture2D ResourceManager::LoadTextureFromPNGFile(const char* file, bool alpha, std::string name)
+Texture2D ResourceManager::LoadTextureFromPNGFile(const char* file, bool alpha, const std::string &name)
 {
     Textures[name] = loadTextureFromFile(file, alpha);
     return Textures[name];
@@ -46,8 +46,8 @@ Texture2D ResourceManager::LoadTextureFromHeader(const unsigned char* image, int
 
     Texture2D texture;
     if (alpha) {
-        texture.setInternalFormat(GL_RGBA);
-        texture.setImageFormat(GL_RGBA);
+        texture.SetInternalFormat(GL_RGBA);
+        texture.SetImageFormat(GL_RGBA);
     }
     texture.Generate(width, height, data);
 
@@ -65,9 +65,9 @@ Texture2D& ResourceManager::GetTexture(std::string name)
 void ResourceManager::Clear()
 {
     for (auto& iter : Shaders)
-        glDeleteProgram(iter.second.getID());
+        glDeleteProgram(iter.second.GetID());
     for (auto& iter : Textures)
-        glDeleteProgram(iter.second.getID());
+        glDeleteProgram(iter.second.GetID());
 }
 
 Shader ResourceManager::loadShaderFromFile(const char* shaderFileVert, const char* shaderFileFrag, const char* shaderFileGeo)
@@ -116,8 +116,8 @@ Texture2D ResourceManager::loadTextureFromFile(const char* file, bool alpha)
 {
     Texture2D texture;
     if (alpha) {
-        texture.setInternalFormat(GL_RGBA);
-        texture.setImageFormat(GL_RGBA);
+        texture.SetInternalFormat(GL_RGBA);
+        texture.SetImageFormat(GL_RGBA);
     }
     
     int width, height, nrChannels;

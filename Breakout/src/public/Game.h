@@ -28,10 +28,8 @@ public:
     void Update(float dt);
     void Render(const glm::vec3 &color);
 
-    bool m_keys[1024];
-
 private:
-    Collision CheckBallCollision(GameObject& aabbObj, Ball *ball);
+    Collision CheckBallCollision(const GameObject& aabbObj, const Ball &ball);
     void DoCollisions();
 
     GameState m_state;
@@ -40,5 +38,5 @@ private:
     std::vector<GameLevel> m_levels;
 
     std::vector<std::unique_ptr<Ball>> m_balls;
-    SpriteRenderer* m_spriteRenderer;
+    std::unique_ptr<SpriteRenderer> m_spriteRenderer;
 };

@@ -13,7 +13,7 @@ public:
     void Draw(SpriteRenderer& renderer, const glm::vec3& color);
 
     bool IsCompleted();
-    std::vector<GameObject>& getBricks();
+    std::vector<GameObject>& GetBricks();
 
 private:
     std::vector<GameObject> m_bricks;

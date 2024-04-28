@@ -8,9 +8,9 @@ public:
     void Generate(unsigned int width, unsigned int height, unsigned char* data);
     void Bind() const;
 
-    unsigned int getID() const;
-    void setInternalFormat(unsigned int internalFormat);
-    void setImageFormat(unsigned int imageFormat);
+    unsigned int GetID() const;
+    void SetInternalFormat(unsigned int internalFormat);
+    void SetImageFormat(unsigned int imageFormat);
 
 private:
     unsigned int m_ID;

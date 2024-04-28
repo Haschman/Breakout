@@ -106,13 +106,13 @@ void Shader::SetMatrix4(const char* name, const glm::mat4& matrix, bool useShade
     glUniformMatrix4fv(glGetUniformLocation(m_ID, name), 1, false, glm::value_ptr(matrix));
 }
 
-unsigned int Shader::getID() const
+unsigned int Shader::GetID() const
 {
     return m_ID;
 }
 
 
-void Shader::checkCompileErrors(unsigned int object, std::string type)
+void Shader::checkCompileErrors(unsigned int object, const std::string &type)
 {
     int success;
     char infoLog[1024];

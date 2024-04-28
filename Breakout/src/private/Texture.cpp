@@ -31,17 +31,17 @@ void Texture2D::Bind() const
     glBindTexture(GL_TEXTURE_2D, m_ID);
 }
 
-unsigned int Texture2D::getID() const
+unsigned int Texture2D::GetID() const
 {
     return m_ID;
 }
 
-void Texture2D::setInternalFormat(unsigned int internalFormat)
+void Texture2D::SetInternalFormat(unsigned int internalFormat)
 {
     m_internalFormat = internalFormat;
 }
 
-void Texture2D::setImageFormat(unsigned int imageFormat)
+void Texture2D::SetImageFormat(unsigned int imageFormat)
 {
     m_imageFormat = imageFormat;
 }

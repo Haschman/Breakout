@@ -9,20 +9,20 @@ class GameObject {
 public:
     GameObject();
     GameObject(
-        glm::vec2 pos,
-        glm::vec2 size,
-        Texture2D sprite,
+        const glm::vec2 &pos,
+        const glm::vec2 &size,
+        const Texture2D &sprite,
         bool isLight,
-        glm::vec3 color = glm::vec3(1.0f),
-        glm::vec2 velocity = glm::vec2(0.0f, 0.0f)
+        const glm::vec3 &color = glm::vec3(1.0f),
+        const glm::vec2 &velocity = glm::vec2(0.0f, 0.0f)
     );
 
-    virtual void Draw(SpriteRenderer& renderer, const glm::vec3 &color);
+    virtual void Draw(SpriteRenderer& renderer, const glm::vec3 &color) const;
     void Destroy();
 
-    bool isLight() const;
-    glm::vec2 getPosition() const;
-    glm::vec2 getSize() const;
+    bool IsLight() const;
+    glm::vec2 GetPosition() const;
+    glm::vec2 GetSize() const;
 
 protected:
     glm::vec2 m_position, m_size, m_velocity;
