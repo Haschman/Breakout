@@ -10,11 +10,9 @@
 #include "ErrorManager.h"
 
 #include <iostream>
-#include <thread>
 
-
-const unsigned int SCREEN_WIDTH = 800;
-const unsigned int SCREEN_HEIGHT = 600;
+const unsigned int SCREEN_WIDTH = 1000;
+const unsigned int SCREEN_HEIGHT = 800;
 
 Game Breakout(SCREEN_WIDTH, SCREEN_HEIGHT);
 
@@ -97,11 +95,23 @@ int main(int argc, char* argv[]) {
             static float blue = 0.0f;
 
             {
-                ImGui::Begin("Colors");
+                ImGui::Begin("Settings");
 
                 ImGui::SliderFloat("red", &red, 0.0f, 1.0f);
                 ImGui::SliderFloat("green", &green, 0.0f, 1.0f);
                 ImGui::SliderFloat("blue", &blue, 0.0f, 1.0f);
+
+                if (ImGui::Button("Add dark"))
+                    Breakout.AddBall(true);
+                ImGui::SameLine();
+                if (ImGui::Button("Remove dark"))
+                    Breakout.RemoveBall(true);
+
+                if (ImGui::Button("Add light"))
+                    Breakout.AddBall(false);
+                ImGui::SameLine();
+                if (ImGui::Button("Remove light"))
+                    Breakout.RemoveBall(false);
 
             #ifdef _DEBUG
                 ImGui::Text(

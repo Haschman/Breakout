@@ -45,29 +45,33 @@ void Game::Init()
     m_levels.push_back(one);
 
     ResourceManager::LoadTextureFromHeader(white_ball_png, white_ball_png_len, true, "white_ball");
+    std::srand(time(0));
+}
 
-    srand(time(0));
+void Game::AddBall(bool isWhite) {
+    float posY = isWhite ? m_height - BALL_RADIUS * 2.0f : BALL_RADIUS * 2.0f;
+    float velocityX = std::rand() % 2 ? 200.0f : -200.0f;
+    float velocityY = isWhite ? -350.0f : 350.0f;
 
     m_balls.push_back(std::make_unique<Ball>(
         BALL_RADIUS,
         glm::vec2(
             (float)(rand() % (m_width - (int)BALL_RADIUS - (int)BALL_RADIUS + 1)) + (int)BALL_RADIUS,
-            m_height - BALL_RADIUS * 2.0f
+            posY
         ),
-        glm::vec2(200.0f, -350.0f),
+        glm::vec2(velocityX, velocityY),
         ResourceManager::GetTexture("white_ball"),
-        true
+        isWhite
     ));
-    m_balls.push_back(std::make_unique<Ball>(
-        BALL_RADIUS,
-        glm::vec2(
-            (float)(rand() % (m_width - (int)BALL_RADIUS - (int)BALL_RADIUS + 1)) + (int)BALL_RADIUS,
-            BALL_RADIUS * 2.0f
-        ),
-        glm::vec2(200.0f, -350.0f),
-        ResourceManager::GetTexture("white_ball"),
-        false
-    ));
+}
+
+void Game::RemoveBall(bool isWhite) {
+    for (auto it = m_balls.begin(); it != m_balls.end(); it++) {
+        if ((*it)->IsLight() == isWhite) {
+            m_balls.erase(it);
+            break;
+        }
+    }
 }
 
 void Game::ProcessInput(float dt)

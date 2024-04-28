@@ -23,6 +23,8 @@ public:
     ~Game();
 
     void Init();
+    void AddBall(bool isWhite);
+    void RemoveBall(bool isWhite);
 
     void ProcessInput(float dt);
     void Update(float dt);
