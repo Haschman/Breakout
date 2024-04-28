@@ -1,5 +1,9 @@
 #include "Game.h"
 #include "ResourceManager.h"
+#include "white_ball.h"
+#include "block_white.h"
+
+#include <time.h>
 
 #include "glm/glm.hpp"
 #include "glm/gtc/matrix_transform.hpp"
@@ -36,25 +40,33 @@ void Game::Init()
 
     m_spriteRenderer = new SpriteRenderer(ResourceManager::GetShader("MainShader"));
 
-    ResourceManager::LoadTexture("resources/block_white.png", false, "block");
+    ResourceManager::LoadTextureFromHeader(block_white_png, block_white_png_len, false, "block");
 
     GameLevel one;
     one.Init(10.0f, 15.0f, static_cast<float>(m_width), static_cast<float>(m_height));
     m_levels.push_back(one);
 
-    ResourceManager::LoadTexture("resources/white_ball.png", true, "white_ball");
+    ResourceManager::LoadTextureFromHeader(white_ball_png, white_ball_png_len, true, "white_ball");
+
+    srand(time(0));
 
     m_balls.push_back(std::make_unique<Ball>(
         BALL_RADIUS,
-        glm::vec2((m_width / 2) - (BALL_RADIUS), m_height - BALL_RADIUS * 2),
-        glm::vec2(100.0f, -350.0f),
+        glm::vec2(
+            (float)(rand() % (m_width - (int)BALL_RADIUS - (int)BALL_RADIUS + 1)) + (int)BALL_RADIUS,
+            m_height - BALL_RADIUS * 2.0f
+        ),
+        glm::vec2(200.0f, -350.0f),
         ResourceManager::GetTexture("white_ball"),
         true
     ));
     m_balls.push_back(std::make_unique<Ball>(
         BALL_RADIUS,
-        glm::vec2((m_width / 2) - (BALL_RADIUS), BALL_RADIUS * 2),
-        glm::vec2(-100.0f, 350.0f),
+        glm::vec2(
+            (float)(rand() % (m_width - (int)BALL_RADIUS - (int)BALL_RADIUS + 1)) + (int)BALL_RADIUS,
+            BALL_RADIUS * 2.0f
+        ),
+        glm::vec2(200.0f, -350.0f),
         ResourceManager::GetTexture("white_ball"),
         false
     ));

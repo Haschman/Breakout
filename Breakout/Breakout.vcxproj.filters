@@ -9,18 +9,21 @@
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
     </Filter>
-    <Filter Include="Resource Files">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
-    <Filter Include="Resource Files\Levels">
-      <UniqueIdentifier>{88b9acdf-ab04-4ec3-82ba-7694ac8a8108}</UniqueIdentifier>
-    </Filter>
     <Filter Include="imgui">
       <UniqueIdentifier>{b5f7afc8-79ff-43dd-b81c-69fbbec02f27}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Shaders">
+    <Filter Include="Header Files\Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Header Files\Resource Files\Levels">
+      <UniqueIdentifier>{88b9acdf-ab04-4ec3-82ba-7694ac8a8108}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Resource Files\Shaders">
       <UniqueIdentifier>{a1852df5-7362-49b7-bcb2-ed915f1f02ca}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Resource Files\Images">
+      <UniqueIdentifier>{ded76760-4c01-4cbb-a31b-4312816ba0e7}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -78,6 +81,12 @@
     <ClInclude Include="src\imgui\imstb_truetype.h">
       <Filter>imgui</Filter>
     </ClInclude>
+    <ClInclude Include="resources\block_white.h">
+      <Filter>Header Files\Resource Files\Images</Filter>
+    </ClInclude>
+    <ClInclude Include="resources\white_ball.h">
+      <Filter>Header Files\Resource Files\Images</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\private\Game.cpp">
@@ -134,30 +143,13 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="resources\levels\1.lvl">
-      <Filter>Resource Files\Levels</Filter>
+      <Filter>Header Files\Resource Files\Levels</Filter>
     </None>
     <None Include="src\shaders\shader.frag.h">
-      <Filter>Header Files\Shaders</Filter>
+      <Filter>Header Files\Resource Files\Shaders</Filter>
     </None>
     <None Include="src\shaders\shader.vert.h">
-      <Filter>Header Files\Shaders</Filter>
+      <Filter>Header Files\Resource Files\Shaders</Filter>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="resources\flower.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="resources\flower_small.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="resources\heart.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="resources\white_ball.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="resources\block_white.png">
-      <Filter>Resource Files</Filter>
-    </Image>
   </ItemGroup>
 </Project>

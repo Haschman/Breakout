@@ -13,7 +13,8 @@ public:
     static Shader LoadShader(const std::string &name);
     static Shader& GetShader(std::string name);
 
-    static Texture2D LoadTexture(const char* file, bool alpha, std::string name);
+    static Texture2D LoadTextureFromPNGFile(const char* file, bool alpha, std::string name);
+    static Texture2D LoadTextureFromHeader(const unsigned char* image, int imageSize, bool alpha, const std::string& name);
     static Texture2D& GetTexture(std::string name);
 
     // De-allocates all loaded resources

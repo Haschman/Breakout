@@ -33,9 +33,27 @@ Shader& ResourceManager::GetShader(std::string name)
     return Shaders[name];
 }
 
-Texture2D ResourceManager::LoadTexture(const char* file, bool alpha, std::string name)
+Texture2D ResourceManager::LoadTextureFromPNGFile(const char* file, bool alpha, std::string name)
 {
     Textures[name] = loadTextureFromFile(file, alpha);
+    return Textures[name];
+}
+
+Texture2D ResourceManager::LoadTextureFromHeader(const unsigned char* image, int imageSize, bool alpha, const std::string &name)
+{
+    int width, height, nrChannels;
+    unsigned char* data = stbi_load_from_memory(image, imageSize, &width, &height, &nrChannels, 0);
+
+    Texture2D texture;
+    if (alpha) {
+        texture.setInternalFormat(GL_RGBA);
+        texture.setImageFormat(GL_RGBA);
+    }
+    texture.Generate(width, height, data);
+
+    stbi_image_free(data);
+
+    Textures[name] = texture;
     return Textures[name];
 }
 
